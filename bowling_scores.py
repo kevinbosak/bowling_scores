@@ -136,4 +136,4 @@ if __name__ == '__main__':
     if score == 30*MAX_FRAMES:
         print("Perfect game!!")
     else:
-        print("Your total score is {score}.")
+        print(f"Your total score is {score}.")
