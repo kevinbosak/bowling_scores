@@ -1,6 +1,6 @@
 # Bowling Scores
 A simple example library and program to calculate bowling scores using Python 3.
-You may run 'bowling_scores.py' directly, or include its "BowlingScores" class
+You may run 'bowling_scores.py' directly, or include its "Bowler" class
 to use in your own programs.
 
 ## Input
@@ -12,15 +12,15 @@ Bowling scores are calculated as follows:
 
 ### Strike
 If you knock down all 10 pins in the first shot of a frame, you get a strike.
-How to score: A strike earns 10 points plus the sum of your next two shots.
+A strike earns 10 points plus the sum of your next two shots.
 
 ### Spare
 If you knock down all 10 pins using both shots of a frame, you get a spare.
-How to score: A spare earns 10 points plus the sum of your next one-shot.
+A spare earns 10 points plus the sum of your next one-shot.
 
 ### Open Frame
 If you do not knock down all 10 pins using both shots of your frame (9 or fewer pins knocked down), you have an open frame.
-How to score: An open frame only earns the number of pins knocked down.
+An open frame only earns the number of pins knocked down.
 
 ### The 10th Frame
 
