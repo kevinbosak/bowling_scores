@@ -49,7 +49,7 @@ class BowlingFrame:
 
 class Bowler:
     """ This class represent a bowler playing a single game. It keeps track of
-        the bowler's rolls and calculates the score after each roll.
+        the bowler's rolls and can calculate the current score.
     """
 
     def __init__(self, bowler_name='bowler'):
