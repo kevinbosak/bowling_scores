@@ -135,7 +135,7 @@ if __name__ == '__main__':
         bowler.add_roll(pins)
 
     score = bowler.get_score()
-    if score == 300:
+    if score == 30*MAX_FRAMES:
         print("Perfect game!!")
     else:
         print("Your total score is {score}.")
