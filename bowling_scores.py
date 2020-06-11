@@ -13,11 +13,18 @@ class BowlingFrame:
         self.score = None
         self.rolls = []
         self.done_rolling = False
+        self.is_resolved = False
 
     def add_roll(self, roll):
         """ Takes a roll and calculates the frame's score (if possible) and
-            checks whether this frame is done rolling
+            checks whether this frame is done rolling. Assumes input has
+            already been sanitized.
         """
+
+        # Make sure there is no cheating
+        if len(self.rolls) == 1 and self.rolls[0] != 10 and \
+                self.rolls[0] + roll > 10:
+            raise InvalidRoll("You can not knock down more than 10 pins!")
 
         self.rolls.append(roll)
 
@@ -26,6 +33,7 @@ class BowlingFrame:
                 (len(self.rolls) == 3 and (self.rolls[0] == 10 or
                                            sum(self.rolls[:2]) == 10)):
             self.score = sum(self.rolls)
+            self.is_resolved = True
 
         elif len(self.rolls) == 1 and roll != 10:
             # use the first roll of an unresolved frame for score if it's not a
@@ -62,7 +70,7 @@ class Bowler:
             rolls or frames remaining.
         """
         if self.current_frame_id == MAX_FRAMES and \
-                self.frames[MAX_FRAMES-1].score is not None:
+                self.frames[MAX_FRAMES-1].is_resolved:
             return True
 
         return False
@@ -82,8 +90,11 @@ class Bowler:
             raise ValueError("Roll values must be between 0 - 10, inclusive.")
 
         # Add to any prior unresolved frames first, then to current frame
-        for i, frame in enumerate(self.frames):
-            if frame.score is not None:
+        for i in range(self.current_frame_id):
+            print(f"adding to frame {i}")
+            frame = self.frames[i]
+            if frame.is_resolved:
+                print(f"Already scored frame {i}")
                 continue
             frame.add_roll(value)
             if i + 1 == self.current_frame_id:
@@ -106,21 +117,22 @@ if __name__ == '__main__':
     print("""Bowling Scores:
     This program will prompt you for the number of pins you knock down
     for each shot on each frame.  Enter the number of pins as an integer.
-    You may also use 'X' for strikes or '/' for spares.
     """)
 
     bowler = Bowler()
     while (not bowler.is_done_bowling()):
         score = bowler.get_score()
-        print("Your current score is {score}")
+        print(f"Your current score is {score}")
 
-        frame, roll = bowler.get_next_roll()
-        pins = input(f"Enter pins knocked down for frame {frame}, roll {roll}")
+        frame = bowler.current_frame_id
+        pins = input(f"Enter pins knocked down for frame {frame}: ")
         try:
-            bowler.add_roll(pins)
+            pins = int(pins)
         except ValueError:
             print("Invalid value entered, try again.")
             continue
+
+        bowler.add_roll(pins)
 
     score = bowler.get_score()
     if score == 300:
