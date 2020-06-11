@@ -5,7 +5,7 @@ to use in your own programs.
 
 ## Input
 This script will prompt the user for input from the command line.  It will only
-accept integer values as well as '/' or 'X' for strikes and spares, accordingly.
+accept integer values.
 
 ## Explanation
 Bowling scores are calculated as follows:
