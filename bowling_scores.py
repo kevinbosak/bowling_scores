@@ -126,11 +126,10 @@ if __name__ == '__main__':
         pins = input(f"Enter pins knocked down for frame {frame}: ")
         try:
             pins = int(pins)
+            bowler.add_roll(pins)
         except ValueError:
             print("Invalid value entered, try again.")
             continue
-
-        bowler.add_roll(pins)
 
     score = bowler.get_score()
     if score == 30*MAX_FRAMES:
