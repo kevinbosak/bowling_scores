@@ -91,10 +91,8 @@ class Bowler:
 
         # Add to any prior unresolved frames first, then to current frame
         for i in range(self.current_frame_id):
-            print(f"adding to frame {i}")
             frame = self.frames[i]
             if frame.is_resolved:
-                print(f"Already scored frame {i}")
                 continue
             frame.add_roll(value)
             if i + 1 == self.current_frame_id:
